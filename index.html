@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>COVID-19 Dashboard</title>
+
+    <link rel="stylesheet" href="https://unpkg.com/purecss@1.0.1/build/base-min.css" />
+    <link rel="stylesheet" href="https://unpkg.com/purecss@2.0.3/build/pure-min.css" />
+    <link rel="stylesheet" href="https://unpkg.com/purecss@2.0.3/build/grids-responsive-min.css" />
+
+
+    <script src="https://cdn.jsdelivr.net/npm/vega@5.17.0"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vega-lite@4.17.0"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vega-embed@6.12.2"></script>
+
+    <style>
+        body {
+            margin-left: 1em;
+            color: #333333;
+        }
+        
+        html,
+        button,
+        input,
+        select,
+        textarea,
+        .pure-g [class*="pure-u"] {
+            /* Set your content font stack here: */
+            font-family: Verdana, Arial, sans-serif;
+        }
+        
+        .button-margin {
+            margin-top: 1em;
+            margin-right: 0.5em;
+            margin-bottom: 1em;
+        }
+        
+        .small-font {
+            font-size: 0.75em;
+        }
+        
+        .gray-font {
+            color: #666666
+        }
+        
+        .push-down {
+            margin-top: 0.67em;
+        }
+    </style>
+
+    <script src="CovidDashboard.js"></script>
+</head>
+
+<body>
+    <div id="app"></div>
+    <script>
+        var storedData = localStorage.getItem("data");
+        var startingData = storedData ? JSON.parse(storedData) : null;
+
+        var app = Elm.Main.init({
+            node: document.getElementById("app"),
+            flags: {
+                startingData: startingData,
+                windowWidth: window.innerWidth,
+                windowHeight: window.innerHeight
+            },
+        });
+
+        // TODO handle data save failure.
+        app.ports.storeData.subscribe(function(data) {
+            if (data.length > 0) {
+                var dataJson = JSON.stringify(data);
+                localStorage.setItem("data", dataJson);
+            }
+        });
+
+        var requestAnimationFrame =
+            window.requestAnimationFrame ||
+            window.mozRequestAnimationFrame ||
+            window.webkitRequestAnimationFrame ||
+            window.msRequestAnimationFrame;
+
+        let updateChart = function(spec) {
+            // console.log(spec);
+            requestAnimationFrame(function() {
+                vegaEmbed("#case-count-chart", spec, {
+                    actions: {
+                        export: true,
+                        source: false,
+                        compiled: false,
+                        editor: false
+                    },
+                    renderer: "canvas"
+                }).catch(
+                    console.warn
+                );
+            });
+        };
+
+        app.ports.sendToVegaLite.subscribe(updateChart);
+    </script>
+</body>
+
+</html>
