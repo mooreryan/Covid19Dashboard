@@ -476,7 +476,7 @@ viewWeightByPopulationSelector : Model -> Html Msg
 viewWeightByPopulationSelector model =
     -- TODO this should only trigger if all the counties have population data.
     if allCountiesHavePopData model.selectedKeys then
-        H.div []
+        H.div [ HA.class "extra-bottom-margin" ]
             [ H.label []
                 [ H.input
                     [ HA.type_ "checkbox"
@@ -489,7 +489,7 @@ viewWeightByPopulationSelector model =
             ]
 
     else
-        H.div []
+        H.div [ HA.class "extra-bottom-margin" ]
             [ H.text "Not all selected counties have population data."
             ]
 

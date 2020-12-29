@@ -18655,7 +18655,10 @@ var $elm$html$Html$Attributes$type_ = $elm$html$Html$Attributes$stringProperty('
 var $author$project$Main$viewWeightByPopulationSelector = function (model) {
 	return $author$project$Main$allCountiesHavePopData(model.e) ? A2(
 		$elm$html$Html$div,
-		_List_Nil,
+		_List_fromArray(
+			[
+				$elm$html$Html$Attributes$class('extra-bottom-margin')
+			]),
 		_List_fromArray(
 			[
 				A2(
@@ -18676,7 +18679,10 @@ var $author$project$Main$viewWeightByPopulationSelector = function (model) {
 					]))
 			])) : A2(
 		$elm$html$Html$div,
-		_List_Nil,
+		_List_fromArray(
+			[
+				$elm$html$Html$Attributes$class('extra-bottom-margin')
+			]),
 		_List_fromArray(
 			[
 				$elm$html$Html$text('Not all selected counties have population data.')
