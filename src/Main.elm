@@ -47,7 +47,8 @@ main =
 
 
 type alias Flags =
-    { startingData : Maybe String
+    { hasLocalStorage : Bool
+    , startingData : Maybe String
     , windowWidth : Int
     , windowHeight : Int
     }
@@ -64,6 +65,7 @@ type alias Model =
     , weightCounts : Bool
     , windowWidth : Int
     , windowHeight : Int
+    , hasLocalStorage : Bool
     }
 
 
@@ -100,6 +102,7 @@ init flags =
       , weightCounts = False
       , windowWidth = flags.windowWidth
       , windowHeight = flags.windowHeight
+      , hasLocalStorage = flags.hasLocalStorage
       }
     , Task.perform
         CheckFetchData
@@ -794,13 +797,19 @@ encodeModel model =
         ]
 
 
+{-| If there is no localStorage, then do nothing.
+-}
 saveData : Model -> Cmd msg
 saveData model =
     let
         indentation =
             0
     in
-    model
-        |> encodeModel
-        |> E.encode indentation
-        |> Ports.storeData
+    if model.hasLocalStorage then
+        model
+            |> encodeModel
+            |> E.encode indentation
+            |> Ports.storeData
+
+    else
+        Cmd.none

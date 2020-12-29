@@ -519,11 +519,11 @@ function _Debug_crash_UNUSED(identifier, fact1, fact2, fact3, fact4)
 
 function _Debug_regionToString(region)
 {
-	if (region.W.H === region.ad.H)
+	if (region.X.I === region.ae.I)
 	{
-		return 'on line ' + region.W.H;
+		return 'on line ' + region.X.I;
 	}
-	return 'on lines ' + region.W.H + ' through ' + region.ad.H;
+	return 'on lines ' + region.X.I + ' through ' + region.ae.I;
 }
 
 
@@ -1857,9 +1857,9 @@ var _Platform_worker = F4(function(impl, flagDecoder, debugMetadata, args)
 	return _Platform_initialize(
 		flagDecoder,
 		args,
-		impl.aR,
-		impl.a5,
-		impl.a2,
+		impl.aS,
+		impl.a6,
+		impl.a3,
 		function() { return function() {} }
 	);
 });
@@ -2705,8 +2705,8 @@ var _VirtualDom_mapEventRecord = F2(function(func, record)
 {
 	return {
 		q: func(record.q),
-		Y: record.Y,
-		U: record.U
+		Z: record.Z,
+		V: record.V
 	}
 });
 
@@ -2975,10 +2975,10 @@ function _VirtualDom_makeCallback(eventNode, initialHandler)
 
 		var value = result.a;
 		var message = !tag ? value : tag < 3 ? value.a : value.q;
-		var stopPropagation = tag == 1 ? value.b : tag == 3 && value.Y;
+		var stopPropagation = tag == 1 ? value.b : tag == 3 && value.Z;
 		var currentEventNode = (
 			stopPropagation && event.stopPropagation(),
-			(tag == 2 ? value.b : tag == 3 && value.U) && event.preventDefault(),
+			(tag == 2 ? value.b : tag == 3 && value.V) && event.preventDefault(),
 			eventNode
 		);
 		var tagger;
@@ -3928,11 +3928,11 @@ var _Browser_element = _Debugger_element || F4(function(impl, flagDecoder, debug
 	return _Platform_initialize(
 		flagDecoder,
 		args,
-		impl.aR,
-		impl.a5,
-		impl.a2,
+		impl.aS,
+		impl.a6,
+		impl.a3,
 		function(sendToApp, initialModel) {
-			var view = impl.a7;
+			var view = impl.a8;
 			/**/
 			var domNode = args['node'];
 			//*/
@@ -3964,12 +3964,12 @@ var _Browser_document = _Debugger_document || F4(function(impl, flagDecoder, deb
 	return _Platform_initialize(
 		flagDecoder,
 		args,
-		impl.aR,
-		impl.a5,
-		impl.a2,
+		impl.aS,
+		impl.a6,
+		impl.a3,
 		function(sendToApp, initialModel) {
-			var divertHrefToApp = impl.V && impl.V(sendToApp)
-			var view = impl.a7;
+			var divertHrefToApp = impl.W && impl.W(sendToApp)
+			var view = impl.a8;
 			var title = _VirtualDom_doc.title;
 			var bodyNode = _VirtualDom_doc.body;
 			var currNode = _VirtualDom_virtualize(bodyNode);
@@ -3977,12 +3977,12 @@ var _Browser_document = _Debugger_document || F4(function(impl, flagDecoder, deb
 			{
 				_VirtualDom_divertHrefToApp = divertHrefToApp;
 				var doc = view(model);
-				var nextNode = _VirtualDom_node('body')(_List_Nil)(doc.aG);
+				var nextNode = _VirtualDom_node('body')(_List_Nil)(doc.aH);
 				var patches = _VirtualDom_diff(currNode, nextNode);
 				bodyNode = _VirtualDom_applyPatches(bodyNode, currNode, patches, sendToApp);
 				currNode = nextNode;
 				_VirtualDom_divertHrefToApp = 0;
-				(title !== doc.a4) && (_VirtualDom_doc.title = title = doc.a4);
+				(title !== doc.a5) && (_VirtualDom_doc.title = title = doc.a5);
 			});
 		}
 	);
@@ -4038,12 +4038,12 @@ function _Browser_makeAnimator(model, draw)
 
 function _Browser_application(impl)
 {
-	var onUrlChange = impl.aV;
-	var onUrlRequest = impl.aW;
+	var onUrlChange = impl.aW;
+	var onUrlRequest = impl.aX;
 	var key = function() { key.a(onUrlChange(_Browser_getUrl())); };
 
 	return _Browser_document({
-		V: function(sendToApp)
+		W: function(sendToApp)
 		{
 			key.a = sendToApp;
 			_Browser_window.addEventListener('popstate', key);
@@ -4059,9 +4059,9 @@ function _Browser_application(impl)
 					var next = $elm$url$Url$fromString(href).a;
 					sendToApp(onUrlRequest(
 						(next
-							&& curr.ao === next.ao
-							&& curr.ag === next.ag
-							&& curr.al.a === next.al.a
+							&& curr.ap === next.ap
+							&& curr.ah === next.ah
+							&& curr.am.a === next.am.a
 						)
 							? $elm$browser$Browser$Internal(next)
 							: $elm$browser$Browser$External(href)
@@ -4069,13 +4069,13 @@ function _Browser_application(impl)
 				}
 			});
 		},
-		aR: function(flags)
+		aS: function(flags)
 		{
-			return A3(impl.aR, flags, _Browser_getUrl(), key);
+			return A3(impl.aS, flags, _Browser_getUrl(), key);
 		},
-		a7: impl.a7,
-		a5: impl.a5,
-		a2: impl.a2
+		a8: impl.a8,
+		a6: impl.a6,
+		a3: impl.a3
 	});
 }
 
@@ -4141,17 +4141,17 @@ var _Browser_decodeEvent = F2(function(decoder, event)
 function _Browser_visibilityInfo()
 {
 	return (typeof _VirtualDom_doc.hidden !== 'undefined')
-		? { aP: 'hidden', aH: 'visibilitychange' }
+		? { aQ: 'hidden', aI: 'visibilitychange' }
 		:
 	(typeof _VirtualDom_doc.mozHidden !== 'undefined')
-		? { aP: 'mozHidden', aH: 'mozvisibilitychange' }
+		? { aQ: 'mozHidden', aI: 'mozvisibilitychange' }
 		:
 	(typeof _VirtualDom_doc.msHidden !== 'undefined')
-		? { aP: 'msHidden', aH: 'msvisibilitychange' }
+		? { aQ: 'msHidden', aI: 'msvisibilitychange' }
 		:
 	(typeof _VirtualDom_doc.webkitHidden !== 'undefined')
-		? { aP: 'webkitHidden', aH: 'webkitvisibilitychange' }
-		: { aP: 'hidden', aH: 'visibilitychange' };
+		? { aQ: 'webkitHidden', aI: 'webkitvisibilitychange' }
+		: { aQ: 'hidden', aI: 'visibilitychange' };
 }
 
 
@@ -4232,12 +4232,12 @@ var _Browser_call = F2(function(functionName, id)
 function _Browser_getViewport()
 {
 	return {
-		au: _Browser_getScene(),
-		aA: {
-			aB: _Browser_window.pageXOffset,
-			aC: _Browser_window.pageYOffset,
-			Z: _Browser_doc.documentElement.clientWidth,
-			R: _Browser_doc.documentElement.clientHeight
+		av: _Browser_getScene(),
+		aB: {
+			aC: _Browser_window.pageXOffset,
+			aD: _Browser_window.pageYOffset,
+			_: _Browser_doc.documentElement.clientWidth,
+			S: _Browser_doc.documentElement.clientHeight
 		}
 	};
 }
@@ -4247,8 +4247,8 @@ function _Browser_getScene()
 	var body = _Browser_doc.body;
 	var elem = _Browser_doc.documentElement;
 	return {
-		Z: Math.max(body.scrollWidth, body.offsetWidth, elem.scrollWidth, elem.offsetWidth, elem.clientWidth),
-		R: Math.max(body.scrollHeight, body.offsetHeight, elem.scrollHeight, elem.offsetHeight, elem.clientHeight)
+		_: Math.max(body.scrollWidth, body.offsetWidth, elem.scrollWidth, elem.offsetWidth, elem.clientWidth),
+		S: Math.max(body.scrollHeight, body.offsetHeight, elem.scrollHeight, elem.offsetHeight, elem.clientHeight)
 	};
 }
 
@@ -4271,15 +4271,15 @@ function _Browser_getViewportOf(id)
 	return _Browser_withNode(id, function(node)
 	{
 		return {
-			au: {
-				Z: node.scrollWidth,
-				R: node.scrollHeight
+			av: {
+				_: node.scrollWidth,
+				S: node.scrollHeight
 			},
-			aA: {
-				aB: node.scrollLeft,
-				aC: node.scrollTop,
-				Z: node.clientWidth,
-				R: node.clientHeight
+			aB: {
+				aC: node.scrollLeft,
+				aD: node.scrollTop,
+				_: node.clientWidth,
+				S: node.clientHeight
 			}
 		};
 	});
@@ -4309,18 +4309,18 @@ function _Browser_getElement(id)
 		var x = _Browser_window.pageXOffset;
 		var y = _Browser_window.pageYOffset;
 		return {
-			au: _Browser_getScene(),
-			aA: {
-				aB: x,
-				aC: y,
-				Z: _Browser_doc.documentElement.clientWidth,
-				R: _Browser_doc.documentElement.clientHeight
+			av: _Browser_getScene(),
+			aB: {
+				aC: x,
+				aD: y,
+				_: _Browser_doc.documentElement.clientWidth,
+				S: _Browser_doc.documentElement.clientHeight
 			},
-			aL: {
-				aB: x + rect.left,
-				aC: y + rect.top,
-				Z: rect.width,
-				R: rect.height
+			aM: {
+				aC: x + rect.left,
+				aD: y + rect.top,
+				_: rect.width,
+				S: rect.height
 			}
 		};
 	});
@@ -4411,25 +4411,25 @@ var _Http_toTask = F3(function(router, toTask, request)
 	return _Scheduler_binding(function(callback)
 	{
 		function done(response) {
-			callback(toTask(request.aM.a(response)));
+			callback(toTask(request.aN.a(response)));
 		}
 
 		var xhr = new XMLHttpRequest();
 		xhr.addEventListener('error', function() { done($elm$http$Http$NetworkError_); });
 		xhr.addEventListener('timeout', function() { done($elm$http$Http$Timeout_); });
-		xhr.addEventListener('load', function() { done(_Http_toResponse(request.aM.b, xhr)); });
-		$elm$core$Maybe$isJust(request.az) && _Http_track(router, xhr, request.az.a);
+		xhr.addEventListener('load', function() { done(_Http_toResponse(request.aN.b, xhr)); });
+		$elm$core$Maybe$isJust(request.aA) && _Http_track(router, xhr, request.aA.a);
 
 		try {
-			xhr.open(request.aT, request.a6, true);
+			xhr.open(request.aU, request.a7, true);
 		} catch (e) {
-			return done($elm$http$Http$BadUrl_(request.a6));
+			return done($elm$http$Http$BadUrl_(request.a7));
 		}
 
 		_Http_configureRequest(xhr, request);
 
-		request.aG.a && xhr.setRequestHeader('Content-Type', request.aG.a);
-		xhr.send(request.aG.b);
+		request.aH.a && xhr.setRequestHeader('Content-Type', request.aH.a);
+		xhr.send(request.aH.b);
 
 		return function() { xhr.c = true; xhr.abort(); };
 	});
@@ -4440,13 +4440,13 @@ var _Http_toTask = F3(function(router, toTask, request)
 
 function _Http_configureRequest(xhr, request)
 {
-	for (var headers = request.aO; headers.b; headers = headers.b) // WHILE_CONS
+	for (var headers = request.aP; headers.b; headers = headers.b) // WHILE_CONS
 	{
 		xhr.setRequestHeader(headers.a.a, headers.a.b);
 	}
-	xhr.timeout = request.a3.a || 0;
-	xhr.responseType = request.aM.d;
-	xhr.withCredentials = request.aE;
+	xhr.timeout = request.a4.a || 0;
+	xhr.responseType = request.aN.d;
+	xhr.withCredentials = request.aF;
 }
 
 
@@ -4467,10 +4467,10 @@ function _Http_toResponse(toBody, xhr)
 function _Http_toMetadata(xhr)
 {
 	return {
-		a6: xhr.responseURL,
-		a0: xhr.status,
-		a1: xhr.statusText,
-		aO: _Http_parseHeaders(xhr.getAllResponseHeaders())
+		a7: xhr.responseURL,
+		a1: xhr.status,
+		a2: xhr.statusText,
+		aP: _Http_parseHeaders(xhr.getAllResponseHeaders())
 	};
 }
 
@@ -4565,15 +4565,15 @@ function _Http_track(router, xhr, tracker)
 	xhr.upload.addEventListener('progress', function(event) {
 		if (xhr.c) { return; }
 		_Scheduler_rawSpawn(A2($elm$core$Platform$sendToSelf, router, _Utils_Tuple2(tracker, $elm$http$Http$Sending({
-			a$: event.loaded,
-			av: event.total
+			a0: event.loaded,
+			aw: event.total
 		}))));
 	});
 	xhr.addEventListener('progress', function(event) {
 		if (xhr.c) { return; }
 		_Scheduler_rawSpawn(A2($elm$core$Platform$sendToSelf, router, _Utils_Tuple2(tracker, $elm$http$Http$Receiving({
-			aY: event.loaded,
-			av: event.lengthComputable ? $elm$core$Maybe$Just(event.total) : $elm$core$Maybe$Nothing
+			aZ: event.loaded,
+			aw: event.lengthComputable ? $elm$core$Maybe$Just(event.total) : $elm$core$Maybe$Nothing
 		}))));
 	});
 }
@@ -5089,6 +5089,7 @@ var $elm$core$Result$isOk = function (result) {
 	}
 };
 var $elm$json$Json$Decode$andThen = _Json_andThen;
+var $elm$json$Json$Decode$bool = _Json_decodeBool;
 var $elm$json$Json$Decode$map = _Json_map1;
 var $elm$json$Json$Decode$map2 = _Json_map2;
 var $elm$json$Json$Decode$succeed = _Json_succeed;
@@ -5118,7 +5119,7 @@ var $elm$url$Url$Http = 0;
 var $elm$url$Url$Https = 1;
 var $elm$url$Url$Url = F6(
 	function (protocol, host, port_, path, query, fragment) {
-		return {af: fragment, ag: host, aj: path, al: port_, ao: protocol, ap: query};
+		return {ag: fragment, ah: host, ak: path, am: port_, ap: protocol, aq: query};
 	});
 var $elm$core$String$contains = _String_contains;
 var $elm$core$String$length = _String_length;
@@ -5604,7 +5605,7 @@ var $lovasoa$elm_csv$Csv$parseWith = F2(
 			$elm$core$Maybe$withDefault,
 			_List_Nil,
 			$elm$core$List$head(values));
-		return {aO: headers, aZ: records};
+		return {aP: headers, a_: records};
 	});
 var $lovasoa$elm_csv$Csv$parse = $lovasoa$elm_csv$Csv$parseWith(',');
 var $author$project$TimeSeries$firstConfirmedCountIndex = 11;
@@ -9099,20 +9100,20 @@ var $author$project$TimeSeries$parseRecord = F2(
 		return _Utils_Tuple2(
 			key,
 			{
-				aI: $author$project$TimeSeries$parseConfirmedCounts(data),
-				N: county,
-				aJ: dates,
-				O: key,
-				P: population,
-				Q: state
+				aJ: $author$project$TimeSeries$parseConfirmedCounts(data),
+				O: county,
+				aK: dates,
+				P: key,
+				Q: population,
+				R: state
 			});
 	});
 var $author$project$TimeSeries$parseCsvData = function (csv) {
-	var dates = A2($elm$core$List$drop, $author$project$TimeSeries$firstDateIndex, csv.aO);
+	var dates = A2($elm$core$List$drop, $author$project$TimeSeries$firstDateIndex, csv.aP);
 	var dataRecords = A2(
 		$elm$core$List$map,
 		$author$project$TimeSeries$parseRecord(dates),
-		csv.aZ);
+		csv.a_);
 	return $elm$core$Dict$fromList(dataRecords);
 };
 var $elm$core$Set$insert = F2(
@@ -9571,18 +9572,18 @@ var $author$project$TimeSeries$parseDataRecordList = function (dataRecords) {
 		A2(
 			$elm$core$List$map,
 			function ($) {
-				return $.Q;
+				return $.R;
 			},
 			records),
 		A2(
 			$elm$core$List$map,
 			function ($) {
-				return $.N;
+				return $.O;
 			},
 			records));
 	return {
-		ab: dataRecords,
-		aw: $author$project$TimeSeries$buildStateCountiesDict(stateCounties)
+		ac: dataRecords,
+		ax: $author$project$TimeSeries$buildStateCountiesDict(stateCounties)
 	};
 };
 var $author$project$TimeSeries$parse = function (timeSeriesData) {
@@ -9593,7 +9594,7 @@ var $author$project$TimeSeries$parse = function (timeSeriesData) {
 var $elm$time$Time$utc = A2($elm$time$Time$Zone, 0, _List_Nil);
 var $author$project$Main$init = function (flags) {
 	var startingData = function () {
-		var _v0 = flags.X;
+		var _v0 = flags.Y;
 		if (!_v0.$) {
 			var startData = _v0.a;
 			return $author$project$Main$decodeStartingData(startData);
@@ -9609,13 +9610,14 @@ var $author$project$Main$init = function (flags) {
 			t: $elm$core$Maybe$Nothing,
 			B: $elm$core$Maybe$Nothing,
 			u: startingData.u,
+			D: flags.D,
 			j: startingData.j,
 			x: $author$project$TimeSeries$parse(startingData.u),
 			e: $elm$core$Set$empty,
 			o: false,
-			F: flags.F,
+			G: flags.G,
 			A: flags.A,
-			M: $elm$time$Time$utc
+			N: $elm$time$Time$utc
 		},
 		A2($elm$core$Task$perform, $author$project$Main$CheckFetchData, $elm$time$Time$now));
 };
@@ -9632,7 +9634,7 @@ var $elm$browser$Browser$Events$MySub = F3(
 	});
 var $elm$browser$Browser$Events$State = F2(
 	function (subs, pids) {
-		return {ak: pids, ax: subs};
+		return {al: pids, ay: subs};
 	});
 var $elm$browser$Browser$Events$init = $elm$core$Task$succeed(
 	A2($elm$browser$Browser$Events$State, _List_Nil, $elm$core$Dict$empty));
@@ -9741,7 +9743,7 @@ var $elm$core$Dict$merge = F6(
 	});
 var $elm$browser$Browser$Events$Event = F2(
 	function (key, event) {
-		return {ae: event, O: key};
+		return {af: event, P: key};
 	});
 var $elm$core$Platform$sendToSelf = _Platform_sendToSelf;
 var $elm$browser$Browser$Events$spawn = F3(
@@ -9816,7 +9818,7 @@ var $elm$browser$Browser$Events$onEffects = F3(
 			stepLeft,
 			stepBoth,
 			stepRight,
-			state.ak,
+			state.al,
 			$elm$core$Dict$fromList(newSubs),
 			_Utils_Tuple3(_List_Nil, $elm$core$Dict$empty, _List_Nil));
 		var deadPids = _v0.a;
@@ -9862,8 +9864,8 @@ var $elm$core$List$filterMap = F2(
 	});
 var $elm$browser$Browser$Events$onSelfMsg = F3(
 	function (router, _v0, state) {
-		var key = _v0.O;
-		var event = _v0.ae;
+		var key = _v0.P;
+		var event = _v0.af;
 		var toMessage = function (_v2) {
 			var subKey = _v2.a;
 			var _v3 = _v2.b;
@@ -9872,7 +9874,7 @@ var $elm$browser$Browser$Events$onSelfMsg = F3(
 			var decoder = _v3.c;
 			return _Utils_eq(subKey, key) ? A2(_Browser_decodeEvent, decoder, event) : $elm$core$Maybe$Nothing;
 		};
-		var messages = A2($elm$core$List$filterMap, toMessage, state.ax);
+		var messages = A2($elm$core$List$filterMap, toMessage, state.ay);
 		return A2(
 			$elm$core$Task$andThen,
 			function (_v1) {
@@ -10054,7 +10056,7 @@ var $elm$http$Http$resolve = F2(
 			case 3:
 				var metadata = response.a;
 				return $elm$core$Result$Err(
-					$elm$http$Http$BadStatus(metadata.a0));
+					$elm$http$Http$BadStatus(metadata.a1));
 			default:
 				var body = response.b;
 				return A2(
@@ -10075,7 +10077,7 @@ var $elm$http$Http$Request = function (a) {
 };
 var $elm$http$Http$State = F2(
 	function (reqs, subs) {
-		return {ar: reqs, ax: subs};
+		return {as: reqs, ay: subs};
 	});
 var $elm$http$Http$init = $elm$core$Task$succeed(
 	A2($elm$http$Http$State, $elm$core$Dict$empty, _List_Nil));
@@ -10118,7 +10120,7 @@ var $elm$http$Http$updateReqs = F3(
 					return A2(
 						$elm$core$Task$andThen,
 						function (pid) {
-							var _v4 = req.az;
+							var _v4 = req.aA;
 							if (_v4.$ === 1) {
 								return A3($elm$http$Http$updateReqs, router, otherCmds, reqs);
 							} else {
@@ -10148,7 +10150,7 @@ var $elm$http$Http$onEffects = F4(
 				return $elm$core$Task$succeed(
 					A2($elm$http$Http$State, reqs, subs));
 			},
-			A3($elm$http$Http$updateReqs, router, cmds, state.ar));
+			A3($elm$http$Http$updateReqs, router, cmds, state.as));
 	});
 var $elm$http$Http$maybeSend = F4(
 	function (router, desiredTracker, progress, _v0) {
@@ -10173,7 +10175,7 @@ var $elm$http$Http$onSelfMsg = F3(
 				A2(
 					$elm$core$List$filterMap,
 					A3($elm$http$Http$maybeSend, router, tracker, progress),
-					state.ax)));
+					state.ay)));
 	});
 var $elm$http$Http$Cancel = function (a) {
 	return {$: 0, a: a};
@@ -10187,14 +10189,14 @@ var $elm$http$Http$cmdMap = F2(
 			var r = cmd.a;
 			return $elm$http$Http$Request(
 				{
-					aE: r.aE,
-					aG: r.aG,
-					aM: A2(_Http_mapExpect, func, r.aM),
-					aO: r.aO,
-					aT: r.aT,
-					a3: r.a3,
-					az: r.az,
-					a6: r.a6
+					aF: r.aF,
+					aH: r.aH,
+					aN: A2(_Http_mapExpect, func, r.aN),
+					aP: r.aP,
+					aU: r.aU,
+					a4: r.a4,
+					aA: r.aA,
+					a7: r.a7
 				});
 		}
 	});
@@ -10217,11 +10219,11 @@ var $elm$http$Http$subscription = _Platform_leaf('Http');
 var $elm$http$Http$request = function (r) {
 	return $elm$http$Http$command(
 		$elm$http$Http$Request(
-			{aE: false, aG: r.aG, aM: r.aM, aO: r.aO, aT: r.aT, a3: r.a3, az: r.az, a6: r.a6}));
+			{aF: false, aH: r.aH, aN: r.aN, aP: r.aP, aU: r.aU, a4: r.a4, aA: r.aA, a7: r.a7}));
 };
 var $elm$http$Http$get = function (r) {
 	return $elm$http$Http$request(
-		{aG: $elm$http$Http$emptyBody, aM: r.aM, aO: _List_Nil, aT: 'GET', a3: $elm$core$Maybe$Nothing, az: $elm$core$Maybe$Nothing, a6: r.a6});
+		{aH: $elm$http$Http$emptyBody, aN: r.aN, aP: _List_Nil, aU: 'GET', a4: $elm$core$Maybe$Nothing, aA: $elm$core$Maybe$Nothing, a7: r.a7});
 };
 var $elm$time$Time$posixToMillis = function (_v0) {
 	var millis = _v0;
@@ -10272,11 +10274,11 @@ var $author$project$Main$encodeModel = function (model) {
 var $author$project$Ports$storeData = _Platform_outgoingPort('storeData', $elm$json$Json$Encode$string);
 var $author$project$Main$saveData = function (model) {
 	var indentation = 0;
-	return $author$project$Ports$storeData(
+	return model.D ? $author$project$Ports$storeData(
 		A2(
 			$elm$json$Json$Encode$encode,
 			indentation,
-			$author$project$Main$encodeModel(model)));
+			$author$project$Main$encodeModel(model))) : $elm$core$Platform$Cmd$none;
 };
 var $author$project$Ports$sendToVegaLite = _Platform_outgoingPort('sendToVegaLite', $elm$core$Basics$identity);
 var $author$project$Utils$timeSeriesDataUrl = 'https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_confirmed_US.csv';
@@ -17739,14 +17741,14 @@ var $gicentre$elm_vegalite$VegaLite$dataFromColumns = F2(
 var $author$project$TimeSeries$defaultDate = '';
 var $author$project$TimeSeries$defaultKey = '';
 var $author$project$TimeSeries$defaultDataRecord = {
-	aI: _List_fromArray(
-		[$author$project$Count$default]),
-	N: $author$project$TimeSeries$defaultCounty,
 	aJ: _List_fromArray(
+		[$author$project$Count$default]),
+	O: $author$project$TimeSeries$defaultCounty,
+	aK: _List_fromArray(
 		[$author$project$TimeSeries$defaultDate]),
-	O: $author$project$TimeSeries$defaultKey,
-	P: $elm$core$Maybe$Nothing,
-	Q: $author$project$TimeSeries$defaultState
+	P: $author$project$TimeSeries$defaultKey,
+	Q: $elm$core$Maybe$Nothing,
+	R: $author$project$TimeSeries$defaultState
 };
 var $gicentre$elm_vegalite$VegaLite$VLEncoding = 15;
 var $gicentre$elm_vegalite$VegaLite$encoding = function (channels) {
@@ -17761,7 +17763,7 @@ var $elm$core$Basics$min = F2(
 var $author$project$Main$getChartSize = function (width) {
 	var maxChartSize = 600.0;
 	var w = A2($elm$core$Basics$min, maxChartSize, width * 0.5);
-	return {R: w / 1.618, Z: w};
+	return {S: w / 1.618, _: w};
 };
 var $gicentre$elm_vegalite$VegaLite$VLHeight = 4;
 var $gicentre$elm_vegalite$VegaLite$height = function (h) {
@@ -17874,36 +17876,36 @@ var $author$project$TimeSeries$weightCount = F2(
 	});
 var $author$project$TimeSeries$accumulateDataRecord = F3(
 	function (weightCounts, dataRecord, vegaLiteData) {
-		var newDates = _Utils_ap(vegaLiteData.aJ, dataRecord.aJ);
+		var newDates = _Utils_ap(vegaLiteData.aK, dataRecord.aK);
 		var ks = A2(
 			$elm$core$List$repeat,
-			$elm$core$List$length(dataRecord.aJ),
-			dataRecord.O);
-		var newKeys = _Utils_ap(vegaLiteData.aS, ks);
+			$elm$core$List$length(dataRecord.aK),
+			dataRecord.P);
+		var newKeys = _Utils_ap(vegaLiteData.aT, ks);
 		var confirmedCases = function () {
 			if (weightCounts) {
-				var _v0 = dataRecord.P;
+				var _v0 = dataRecord.Q;
 				if (!_v0.$) {
 					var population = _v0.a;
 					return A2(
 						$elm$core$List$map,
 						$author$project$TimeSeries$weightCount(population),
-						dataRecord.aI);
+						dataRecord.aJ);
 				} else {
-					return A2($elm$core$List$map, $author$project$Count$toFloat, dataRecord.aI);
+					return A2($elm$core$List$map, $author$project$Count$toFloat, dataRecord.aJ);
 				}
 			} else {
-				return A2($elm$core$List$map, $author$project$Count$toFloat, dataRecord.aI);
+				return A2($elm$core$List$map, $author$project$Count$toFloat, dataRecord.aJ);
 			}
 		}();
-		var newConfirmedCases = _Utils_ap(vegaLiteData.aI, confirmedCases);
+		var newConfirmedCases = _Utils_ap(vegaLiteData.aJ, confirmedCases);
 		return _Utils_update(
 			vegaLiteData,
-			{aI: newConfirmedCases, aJ: newDates, aS: newKeys});
+			{aJ: newConfirmedCases, aK: newDates, aT: newKeys});
 	});
 var $author$project$TimeSeries$VegaLiteData = F3(
 	function (dates, confirmedCases, keys) {
-		return {aI: confirmedCases, aJ: dates, aS: keys};
+		return {aJ: confirmedCases, aK: dates, aT: keys};
 	});
 var $author$project$TimeSeries$emptyVegaLiteData = A3($author$project$TimeSeries$VegaLiteData, _List_Nil, _List_Nil, _List_Nil);
 var $author$project$TimeSeries$mkVegaLiteData = F2(
@@ -18374,7 +18376,7 @@ var $author$project$Main$vegaLiteSpec = function (model) {
 	var dataRecords = A2(
 		$elm$core$List$map,
 		function (key) {
-			var _v2 = A2($elm$core$Dict$get, key, model.x.ab);
+			var _v2 = A2($elm$core$Dict$get, key, model.x.ac);
 			if (!_v2.$) {
 				var rec = _v2.a;
 				return rec;
@@ -18394,15 +18396,15 @@ var $author$project$Main$vegaLiteSpec = function (model) {
 				A2(
 					$gicentre$elm_vegalite$VegaLite$dataColumn,
 					'Date',
-					$gicentre$elm_vegalite$VegaLite$strs(vegaLiteData.aJ))),
+					$gicentre$elm_vegalite$VegaLite$strs(vegaLiteData.aK))),
 			A2(
 				$gicentre$elm_vegalite$VegaLite$dataColumn,
 				'Confirmed Cases',
-				$gicentre$elm_vegalite$VegaLite$nums(vegaLiteData.aI))),
+				$gicentre$elm_vegalite$VegaLite$nums(vegaLiteData.aJ))),
 		A2(
 			$gicentre$elm_vegalite$VegaLite$dataColumn,
 			'State, County',
-			$gicentre$elm_vegalite$VegaLite$strs(vegaLiteData.aS)));
+			$gicentre$elm_vegalite$VegaLite$strs(vegaLiteData.aT)));
 	var currentKey = function () {
 		var _v1 = $elm$core$List$head(
 			$elm$core$Set$toList(model.e));
@@ -18414,7 +18416,7 @@ var $author$project$Main$vegaLiteSpec = function (model) {
 		}
 	}();
 	var dataRecord = function () {
-		var _v0 = A2($elm$core$Dict$get, currentKey, model.x.ab);
+		var _v0 = A2($elm$core$Dict$get, currentKey, model.x.ac);
 		if (!_v0.$) {
 			var rec = _v0.a;
 			return rec;
@@ -18446,8 +18448,8 @@ var $author$project$Main$vegaLiteSpec = function (model) {
 	return $gicentre$elm_vegalite$VegaLite$toVegaLite(
 		_List_fromArray(
 			[
-				$gicentre$elm_vegalite$VegaLite$width(size.Z),
-				$gicentre$elm_vegalite$VegaLite$height(size.R),
+				$gicentre$elm_vegalite$VegaLite$width(size._),
+				$gicentre$elm_vegalite$VegaLite$height(size.S),
 				$gicentre$elm_vegalite$VegaLite$autosize(
 				_List_fromArray(
 					[$gicentre$elm_vegalite$VegaLite$asContent])),
@@ -18471,7 +18473,7 @@ var $author$project$Main$update = F2(
 					var newHeight = msg.b;
 					var newModel = _Utils_update(
 						model,
-						{F: newHeight, A: newWidth});
+						{G: newHeight, A: newWidth});
 					return _Utils_Tuple2(
 						newModel,
 						$author$project$Ports$sendToVegaLite(
@@ -18502,8 +18504,8 @@ var $author$project$Main$update = F2(
 						model,
 						$elm$http$Http$get(
 							{
-								aM: $elm$http$Http$expectString($author$project$Main$GotData),
-								a6: $author$project$Utils$timeSeriesDataUrl
+								aN: $elm$http$Http$expectString($author$project$Main$GotData),
+								a7: $author$project$Utils$timeSeriesDataUrl
 							}));
 				case 4:
 					var result = msg.a;
@@ -18760,8 +18762,8 @@ var $elm$time$Time$toAdjustedMinutesHelp = F3(
 			} else {
 				var era = eras.a;
 				var olderEras = eras.b;
-				if (_Utils_cmp(era.W, posixMinutes) < 0) {
-					return posixMinutes + era.ai;
+				if (_Utils_cmp(era.X, posixMinutes) < 0) {
+					return posixMinutes + era.aj;
 				} else {
 					var $temp$defaultOffset = defaultOffset,
 						$temp$posixMinutes = posixMinutes,
@@ -18830,7 +18832,7 @@ var $author$project$Main$viewLastDataFetchTime = function (model) {
 		2,
 		'0',
 		$elm$core$String$fromInt(
-			A2($elm$time$Time$toSecond, model.M, model.j)));
+			A2($elm$time$Time$toSecond, model.N, model.j)));
 	var popDataLink = A2(
 		$elm$html$Html$a,
 		_List_fromArray(
@@ -18846,13 +18848,13 @@ var $author$project$Main$viewLastDataFetchTime = function (model) {
 		2,
 		'0',
 		$elm$core$String$fromInt(
-			A2($elm$time$Time$toMinute, model.M, model.j)));
+			A2($elm$time$Time$toMinute, model.N, model.j)));
 	var hour = A3(
 		$elm$core$String$padLeft,
 		2,
 		'0',
 		$elm$core$String$fromInt(
-			A2($elm$time$Time$toHour, model.M, model.j)));
+			A2($elm$time$Time$toHour, model.N, model.j)));
 	return A2(
 		$elm$html$Html$div,
 		_List_fromArray(
@@ -19068,7 +19070,7 @@ var $author$project$Main$viewCountySelector = F2(
 		var counties = function () {
 			if (!currentState.$) {
 				var state = currentState.a;
-				var _v1 = A2($elm$core$Dict$get, state, model.x.aw);
+				var _v1 = A2($elm$core$Dict$get, state, model.x.ax);
 				if (!_v1.$) {
 					var county = _v1.a;
 					return county;
@@ -19115,7 +19117,7 @@ var $author$project$Main$ChangeState = function (a) {
 };
 var $author$project$Main$viewStateSelector = F2(
 	function (model, id) {
-		var states = $elm$core$Dict$keys(model.x.aw);
+		var states = $elm$core$Dict$keys(model.x.ax);
 		var options = _Utils_ap(
 			_List_fromArray(
 				[
@@ -19275,7 +19277,7 @@ var $author$project$Main$view = function (model) {
 			]));
 };
 var $author$project$Main$main = $elm$browser$Browser$element(
-	{aR: $author$project$Main$init, a2: $author$project$Main$subscriptions, a5: $author$project$Main$update, a7: $author$project$Main$view});
+	{aS: $author$project$Main$init, a3: $author$project$Main$subscriptions, a6: $author$project$Main$update, a8: $author$project$Main$view});
 _Platform_export({'Main':{'init':$author$project$Main$main(
 	A2(
 		$elm$json$Json$Decode$andThen,
@@ -19286,8 +19288,13 @@ _Platform_export({'Main':{'init':$author$project$Main$main(
 					return A2(
 						$elm$json$Json$Decode$andThen,
 						function (startingData) {
-							return $elm$json$Json$Decode$succeed(
-								{X: startingData, F: windowHeight, A: windowWidth});
+							return A2(
+								$elm$json$Json$Decode$andThen,
+								function (hasLocalStorage) {
+									return $elm$json$Json$Decode$succeed(
+										{D: hasLocalStorage, Y: startingData, G: windowHeight, A: windowWidth});
+								},
+								A2($elm$json$Json$Decode$field, 'hasLocalStorage', $elm$json$Json$Decode$bool));
 						},
 						A2(
 							$elm$json$Json$Decode$field,
